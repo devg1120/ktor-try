@@ -1,0 +1,53 @@
+
+sudo apt install openjdk-21-jdk
+java --version
+
+
+##################################################
+systemctl start  postgresql
+
+sudo passwd postgres
+
+su - postgres
+
+password: sakiko1120
+
+~$ psql
+
+postgres=# 
+
+create user test with password 'test';
+alter role test with createdb;
+
+
+alter role test with password 'test';
+alter role test with password 'postgres';
+alter role test with password null;
+
+\du
+
+ postgres  | Superuser, Create role, Create DB, Replication, Bypass RLS | {}
+ test      | Create DB                                                  | {}
+
+--------------------------------------
+# systemctl start  postgresql
+vi /etc/postgresql/14/main/pg_hba.conf
+
+#local   all             all                                     peer
+local   all             all                                     trust
+
+--------------------------------------
+psql -d postgres -U test
+
+\du    #user list
+\l     #database list
+CREATE DATABASE  testdb;
+
+                                  List of databases
+   Name    |  Owner   | Encoding |   Collate   |    Ctype    |   Access privileges   
+-----------+----------+----------+-------------+-------------+-----------------------
+ postgres  | postgres | UTF8     | ja_JP.UTF-8 | ja_JP.UTF-8 | 
+           |          |          |             |             | postgres=CTc/postgres
+           |          |          |             |             | postgres=CTc/postgres
+ testdb    | test     | UTF8     | ja_JP.UTF-8 | ja_JP.UTF-8 | 
+

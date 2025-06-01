@@ -1,0 +1,16 @@
+
+https://github.com/raharrison/kotlin-ktor-exposed-starter
+
+https://github.com/piashcse/ktor-E-Commerce
+
+
+
+sudo apt install openjdk-21-jdk
+
+open-jdk 21
+
+$ java --version
+openjdk 21.0.7 2025-04-15
+OpenJDK Runtime Environment (build 21.0.7+6-Ubuntu-0ubuntu122.04)
+OpenJDK 64-Bit Server VM (build 21.0.7+6-Ubuntu-0ubuntu122.04, mixed mode, sharing)
+
