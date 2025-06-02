@@ -1,0 +1,87 @@
+sudo apt install postgresql postgresql-contrib
+
+sudo vi /etc/postgresql/16/main/pg_hba.conf
+
+#local   all             all                                     peer
+local   all             all                                     trust
+
+sudo vi /etc/postgresql/16/main/postgresql.conf 
+
+port : 5432
+
+
+systemctl status  postgresql
+sudo systemctl restart  postgresql
+
+sudo -u postgres psql
+
+create user test with password 'test';
+alter role test with createdb;
+alter role test with password 'postgres';
+
+postgres=# \du
+                             List of roles
+ Role name |                         Attributes                         
+-----------+------------------------------------------------------------
+ postgres  | Superuser, Create role, Create DB, Replication, Bypass RLS
+ test      | Create DB
+
+postgres=# CREATE DATABASE ktor_tutorial_db;
+         # ALTER DATABASE ktor_tutorial_db  OWNER TO test;
+
+postgres=# \l
+
+                                                           List of databases
+       Name       |  Owner   | Encoding | Locale Provider |   Collate   |    Ctype    | ICU Locale | ICU Rules |   Access privileges   
+------------------+----------+----------+-----------------+-------------+-------------+------------+-----------+-----------------------
+ ktor_tutorial_db | test     | UTF8     | libc            | en_US.UTF-8 | en_US.UTF-8 |            |           | 
+ postgres         | postgres | UTF8     | libc            | en_US.UTF-8 | en_US.UTF-8 |            |           | 
+ template0        | postgres | UTF8     | libc            | en_US.UTF-8 | en_US.UTF-8 |            |           | =c/postgres          +
+                  |          |          |                 |             |             |            |           | postgres=CTc/postgres
+ template1        | postgres | UTF8     | libc            | en_US.UTF-8 | en_US.UTF-8 |            |           | =c/postgres          +
+                  |          |          |                 |             |             |            |           | postgres=CTc/postgres
+(4 rows)
+
+
+
+# psql -h 127.0.0.1 -U test -d ktor_tutorial_db
+passwrd:  postgres
+
+postgres=> \i ./data.sql;
+
+psql:data.sql:1: NOTICE:  table "task" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+
+# psql -h 127.0.0.1 -U test -d ktor_tutorial_db
+passwrd:  postgres
+
+ktor_tutorial_db=> \dt
+       List of relations
+ Schema | Name | Type  | Owner 
+--------+------+-------+-------
+ public | task | table | test
+(1 row)
+
+
+=> SELECT * FROM task;
+
+ktor_tutorial_db=> SELECT * FROM task;
+ id |    name    |       description        | priority 
+----+------------+--------------------------+----------
+  1 | cleaning   | Clean the house          | Low
+  2 | gardening  | Mow the lawn             | Medium
+  3 | shopping   | Buy the groceries        | High
+  4 | painting   | Paint the fence          | Medium
+  5 | exercising | Walk the dog             | Medium
+  6 | meditating | Contemplate the infinite | High
+  7 | program    | kotlin  programing test  | Medium
+
+
+
